@@ -7,7 +7,7 @@
 body {
   font-family: 'Inter', sans-serif;
   font-weight: 400;
-  font-size: 1.4rem;
+  font-size: 1rem;
   line-height: 1.2;
   color: #f4f4f4;
 }
@@ -55,7 +55,7 @@ h1 {
 #suggestions {
   display: none;
   background: #555;
-  height: 200px;
+  max-height: 300px;
   width: 100%;
   overflow-y: auto;
   border-radius: 5px;
@@ -63,10 +63,17 @@ h1 {
 }
 
 .suggestion {
-  padding: 5px;
+  padding: 10px 20px;
   cursor: pointer;
 }
 
-.suggestion:hover {
+.highlighted {
   background: rgb(255, 50, 118);
+}
+
+.error-message {
+  display: none;
+  margin-top: 10px;
+  color: rgb(255, 50, 118);
+  font-weight: 500;
 }
