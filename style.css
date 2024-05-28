@@ -29,7 +29,7 @@ h1 {
 }
 
 .container {
-  width: 600px;
+  width: 100%;
   max-width: 600px;
   padding: 0 1rem;
   display: flex;
@@ -37,6 +37,14 @@ h1 {
   justify-content: space-between;
   align-items: center;
   margin: auto;
+  transition: transform 0.5s ease;
+}
+
+.container.top-aligned {
+  transform: translateY(-200px);
+  position: absolute;
+  content: '';
+  top: 250px;
 }
 
 #search {
@@ -56,7 +64,7 @@ h1 {
 #suggestions {
   display: none;
   background: #555;
-  max-height: 300px;
+  max-height: 420px;
   width: 100%;
   overflow-y: auto;
   border-radius: 5px;

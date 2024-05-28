@@ -104,7 +104,27 @@ const fetchSuggestions = function (query) {
     });
 };
 
+// Search input events
 searchInput.addEventListener('input', function () {
   const query = searchInput.value.trim();
   fetchSuggestions(query);
+});
+
+searchInput.addEventListener('focus', function () {
+  container.classList.add('top-aligned');
+});
+
+searchInput.addEventListener('blur', function () {
+  setTimeout(() => container.classList.remove('top-aligned'), 300);
+});
+
+// Click outside search input
+document.addEventListener('click', event => {
+  if (
+    !searchInput.contains(event.target) &&
+    !suggestionsContainer.contains(event.target)
+  ) {
+    suggestionsContainer.innerHTML = '';
+    suggestionsContainer.style.display = 'none';
+  }
 });
