@@ -26,6 +26,7 @@ h1 {
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
 }
 
 .container {
@@ -44,11 +45,11 @@ h1 {
   transform: translateY(-200px);
   position: absolute;
   content: '';
-  top: 280px;
-  overflow: hidden;
+  top: 250px;
 }
 
 #search {
+  font-size: inherit;
   background: #555;
   border: 1px solid #f4f4f4;
   color: #f4f4f4;
