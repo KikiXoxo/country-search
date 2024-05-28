@@ -3,6 +3,7 @@
 const searchInput = document.querySelector('#search');
 const suggestionsContainer = document.querySelector('#suggestions');
 const errorMessage = document.querySelector('.error-message');
+const spinner = document.querySelector('.spinner');
 let selectedSuggestionIndex = -1;
 
 const selectSuggestion = function (i) {
@@ -76,6 +77,9 @@ const fetchSuggestions = function (query) {
     return;
   }
 
+  spinner.style.display = 'block'; // Show spinner while fetching
+  errorMessage.style.display = 'none'; // Hide message while fetching
+
   fetch(`https://restcountries.com/v3.1/name/${query}`)
     .then(res => {
       if (!res.ok) throw new Error('Failed to fetch suggestions');
@@ -83,13 +87,19 @@ const fetchSuggestions = function (query) {
     })
     .then(suggestions => {
       if (searchInput.value.trim() === query) {
-        showSuggestions(suggestions);
+        // Show suggestions and hide spinner after 1 second delay
+        setTimeout(() => {
+          showSuggestions(suggestions);
+          spinner.style.display = 'none';
+        }, 500);
+
         errorMessage.style.display = 'none';
       }
     })
     .catch(error => {
       console.error('Error fetching suggestions:', error);
       showSuggestions([]);
+      spinner.style.display = 'none';
       errorMessage.style.display = 'block';
     });
 };
