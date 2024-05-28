@@ -1,10 +1,20 @@
 'use strict';
 
+const container = document.querySelector('.container');
 const searchInput = document.querySelector('#search');
 const suggestionsContainer = document.querySelector('#suggestions');
 const errorMessage = document.querySelector('.error-message');
 const spinner = document.querySelector('.spinner');
 let selectedSuggestionIndex = -1;
+
+const debounce = (func, delay) => {
+  let debounceTimeout;
+
+  return function (...args) {
+    clearTimeout(debounceTimeout);
+    debounceTimeout = setTimeout(() => func.apply(this, args), delay);
+  };
+};
 
 const selectSuggestion = function (i) {
   if (i >= 0 && i < suggestionsContainer.children.length) {
@@ -74,6 +84,8 @@ const fetchSuggestions = function (query) {
   if (query.length === 0) {
     suggestionsContainer.innerHTML = '';
     suggestionsContainer.style.display = 'none';
+    spinner.style.display = 'none';
+    errorMessage.style.display = 'none';
     return;
   }
 
@@ -104,10 +116,13 @@ const fetchSuggestions = function (query) {
     });
 };
 
+// Debounced fetchSuggestions
+const debouncedFetchSuggestions = debounce(fetchSuggestions, 500);
+
 // Search input events
 searchInput.addEventListener('input', function () {
   const query = searchInput.value.trim();
-  fetchSuggestions(query);
+  debouncedFetchSuggestions(query);
 });
 
 searchInput.addEventListener('focus', function () {
